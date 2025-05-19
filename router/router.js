@@ -1,7 +1,7 @@
 import { Router } from "express";
-import GameRoutes from "./game/router";
-import ClientRoutes from "./client/router";
-import RentalRoutes from "./rental/router";
+import GameRoutes from "./game/router.js";
+import ClientRoutes from "./client/router.js";
+import RentalRoutes from "./rental/router.js";
 const Routes = Router();
 Routes.use(GameRoutes);
 Routes.use(ClientRoutes);

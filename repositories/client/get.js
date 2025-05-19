@@ -1,27 +1,28 @@
-import db from '../..database.js';
+import { db } from "../../database.js";
 
 export async function GetAll() {
-  return new Promise((resolve, reject) => {
-    db.all('SELECT * FROM customers', (err, rows) => {
-      if (err) reject(err);
-      else resolve(rows);
-    });
-  });
+  try {
+    const result = await db.query('SELECT * FROM customers');
+    return result.rows;
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function GetById(id) {
-  return new Promise((resolve, reject) => {
-    db.get('SELECT * FROM customers WHERE id = ?', [id], (err, row) => {
-      if (err) reject(err);
-      else resolve(row);
-    });
-  });
+   try {
+    const result = await db.query("SELECT * FROM customers WHERE id = $1", [id]);
+    return result.rows[0];
+  } catch (err) {
+    throw err;
+  }
 }
+
 export async function GetByCpf(cpf) {
-  return new Promise((resolve, reject) => {
-    db.get('SELECT * FROM customers WHERE cpf = ?', [cpf], (err, row) => {
-      if (err) reject(err);
-      else resolve(row);
-    });
-  });
+  try {
+    const result = await db.query('SELECT * FROM customers WHERE cpf = $1', [cpf]);
+    return result.rows[0]; 
+  } catch (err) {
+    throw err;
+  }
 }

@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { GetAllRentals } from "../../controllers/rental/get";
-import { CreateRental, ReturnRental } from "../../controllers/rental/post";
-import { DeleteRental } from "../../controllers/rental/delete";
+import { GetAllRentals } from "../../controllers/rental/get.js";
+import { CreateRental, ReturnRental } from "../../controllers/rental/post.js";
+import { DeleteRental } from "../../controllers/rental/delete.js";
 const RentalRoutes = Router();
 RentalRoutes.get("/rentals", GetAllRentals);
 RentalRoutes.post('/rentals', CreateRental);

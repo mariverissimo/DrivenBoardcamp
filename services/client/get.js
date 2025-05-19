@@ -1,12 +1,12 @@
 import { GetAll, GetById } from '../../repositories/client/get.js';
 
-function isValidCpf(cpf) {
+export function isValidCpf(cpf) {
   return typeof cpf === 'string' && /^\d{11}$/.test(cpf);
 }
-function isValidPhone(phone) {
+export function isValidPhone(phone) {
   return typeof phone === 'string' && /^\d{10,11}$/.test(phone);
 }
-function isValidName(name) {
+export function isValidName(name) {
   return typeof name === 'string' && name.trim() !== '';
 }
 

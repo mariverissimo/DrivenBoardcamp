@@ -1,49 +1,52 @@
-import db from '../..database.js';
+import { db } from "../../database.js";
 
-export function GetAllRentals() {
-  return new Promise((resolve, reject) => {
-    const query = `
-      SELECT 
-        rentals.*,
-        customers.name AS customerName,
-        games.name AS gameName
-      FROM rentals
-      JOIN customers ON rentals.customerId = customers.id
-      JOIN games ON rentals.gameId = games.id
-    `;
+export async function GetAllRentals() {
+  const query = `
+    SELECT 
+      rentals.*,
+      customers.name AS customerName,
+      games.name AS gameName
+    FROM rentals
+    JOIN customers ON rentals."customerId" = customers.id
+    JOIN games ON rentals."gameId" = games.id
+  `;
 
-    db.all(query, (err, rows) => {
-      if (err) reject(err);
-      else resolve(rows);
-    });
-  });
+  try {
+    const result = await db.query(query);
+    return result.rows;
+  } catch (err) {
+    throw err;
+  }
 }
 
-export function GetRentalById(id) {
-  return new Promise((resolve, reject) => {
-    db.get(
-      `SELECT rentals.*, games.pricePerDay
-       FROM rentals 
-       JOIN games ON rentals.gameId = games.id 
-       WHERE rentals.id = ?`,
-      [id],
-      (err, row) => {
-        if (err) reject(err);
-        else resolve(row);
-      }
-    );
-  });
+export async function GetRentalById(id) {
+  const query = `
+    SELECT rentals.*, games."pricePerDay"
+    FROM rentals 
+    JOIN games ON rentals."gameId" = games.id 
+    WHERE rentals.id = $1
+  `;
+
+  try {
+    const result = await db.query(query, [id]);
+    return result.rows[0];
+  } catch (err) {
+    throw err;
+  }
 }
 
-export function OpenRentalsByGame(gameId) {
-  return new Promise((resolve, reject) => {
-    db.get(
-      'SELECT COUNT(*) AS count FROM rentals WHERE gameId = ? AND returnDate IS NULL',
-      [gameId],
-      (err, row) => {
-        if (err) reject(err);
-        else resolve(row.count);
-      }
-    );
-  });
+export async function OpenRentalsByGame(gameId) {
+  const query = `
+    SELECT COUNT(*) AS count 
+    FROM rentals 
+    WHERE "gameId" = $1 AND "returnDate" IS NULL
+  `;
+
+  try {
+    const result = await db.query(query, [gameId]);
+    return parseInt(result.rows[0].count);
+  } catch (err) {
+    throw err;
+  }
 }
+

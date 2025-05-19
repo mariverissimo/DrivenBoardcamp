@@ -1,9 +1,9 @@
-import { insertRental } from '../services/rentalService.js';
+import { InsertRental } from '../../services/rental/post.js';
 import { ReturnRentalService } from '../../services/rental/post.js';
 
 export async function CreateRental(req, res) {
   try {
-    await insertRental(req.body);
+    await InsertRental(req.body);
     res.status(201).send(); 
   } catch (err) {
     res.status(err.status || 500).send(err.message || 'Erro ao criar aluguel');

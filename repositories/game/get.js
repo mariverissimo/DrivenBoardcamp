@@ -1,15 +1,16 @@
-import db from '../..database.js';
+import { db } from "../../database.js";
 
-export async function GetUserRepo() {
+export async function GetGame() {
   return db.query('SELECT * FROM games;');
 }
 
-export function GetGameById(id) {
-  return new Promise((resolve, reject) => {
-    db.get('SELECT * FROM games WHERE id = ?', [id], (err, row) => {
-      if (err) reject(err);
-      else resolve(row);
-    });
-  });
+export async function GetGameById(id) {
+  try {
+    const result = await db.query('SELECT * FROM games WHERE id = $1', [id]);
+    return result.rows[0]; 
+  } catch (err) {
+    throw err;
+  }
 }
+
 
