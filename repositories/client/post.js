@@ -1,5 +1,5 @@
 import db from '../..database.js';
-export async function create(customer) {
+export async function Create(customer) {
   return new Promise((resolve, reject) => {
     db.run(
       'INSERT INTO customers (name, phone, cpf) VALUES (?, ?, ?)',

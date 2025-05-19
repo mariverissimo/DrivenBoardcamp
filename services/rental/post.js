@@ -1,7 +1,7 @@
 import { CreateRental } from '../../repositories/rental/post.js';
-import { GetCustomerById } from '../../repositories/rental/post.js';
-import { GetGameById } from '../../repositories/rental/post.js';
-import { CountOpenRentalsByGame } from '../../repositories/rental/post.js';
+import { GetById } from '../../repositories/client/get.js';
+import { GetGameById } from '../../repositories/game/get.js';
+import { OpenRentalsByGame } from '../../repositories/rental/get.js';
 import { GetRentalById } from '../../repositories/rental/get.js';
 import { ReturnRental } from '../../repositories/rental/post.js';
 
@@ -11,13 +11,13 @@ export async function InsertRental({ customerId, gameId, daysRented }) {
     throw { status: 400, message: 'Dados inválidos' };
   }
 
-  const customer = await GetCustomerById(customerId);
+  const customer = await GetById(customerId);
   if (!customer) throw { status: 404, message: 'Cliente não encontrado' };
 
   const game = await GetGameById(gameId);
   if (!game) throw { status: 404, message: 'Jogo não encontrado' };
 
-  const openRentals = await CountOpenRentalsByGame(gameId);
+  const openRentals = await OpenRentalsByGame(gameId);
   if (openRentals >= game.stockTotal) {
     throw { status: 422, message: 'Jogo indisponível no momento' };
   }

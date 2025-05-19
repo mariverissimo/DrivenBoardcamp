@@ -1,7 +1,7 @@
 import { insertRental } from '../services/rentalService.js';
 import { ReturnRentalService } from '../../services/rental/post.js';
 
-export async function createRental(req, res) {
+export async function CreateRental(req, res) {
   try {
     await insertRental(req.body);
     res.status(201).send(); 

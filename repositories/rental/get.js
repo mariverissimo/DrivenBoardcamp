@@ -34,3 +34,16 @@ export function GetRentalById(id) {
     );
   });
 }
+
+export function OpenRentalsByGame(gameId) {
+  return new Promise((resolve, reject) => {
+    db.get(
+      'SELECT COUNT(*) AS count FROM rentals WHERE gameId = ? AND returnDate IS NULL',
+      [gameId],
+      (err, row) => {
+        if (err) reject(err);
+        else resolve(row.count);
+      }
+    );
+  });
+}

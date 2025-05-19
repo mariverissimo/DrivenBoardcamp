@@ -1,6 +1,6 @@
 import { ListRentals } from '../../services/rental/get.js';
 
-export async function getAllRentals(req, res) {
+export async function GetAllRentals(req, res) {
   try {
     const rentals = await ListRentals();
     res.status(200).json(rentals);

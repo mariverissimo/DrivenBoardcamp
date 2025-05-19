@@ -17,7 +17,6 @@ export async function GetById(id) {
     });
   });
 }
-
 export async function GetByCpf(cpf) {
   return new Promise((resolve, reject) => {
     db.get('SELECT * FROM customers WHERE cpf = ?', [cpf], (err, row) => {
