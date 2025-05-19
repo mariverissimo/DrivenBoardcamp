@@ -1,4 +1,4 @@
-import { getAll, getById, getByCpf, create } from '../repositories/client/get.js';
+import { GetAll, GetById } from '../../repositories/client/get.js';
 
 function isValidCpf(cpf) {
   return typeof cpf === 'string' && /^\d{11}$/.test(cpf);
@@ -10,12 +10,12 @@ function isValidName(name) {
   return typeof name === 'string' && name.trim() !== '';
 }
 
-export async function getAllCustomers() {
-  return await getAll();
+export async function GetAllCustomers() {
+  return await GetAll();
 }
 
-export async function getCustomerById(id) {
-  const customer = await getById(id);
+export async function GetCustomerById(id) {
+  const customer = await GetById(id);
   if (!customer) throw { status: 404, message: 'Cliente não encontrado' };
   return customer;
 }

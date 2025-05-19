@@ -1,4 +1,4 @@
-import db from '../database/db.js';
+import db from '../..database.js';
 
 export async function GetAll() {
   return new Promise((resolve, reject) => {

@@ -1,4 +1,4 @@
-import { db } from "../../database.js";
+import db from '../..database.js';
 
 export async function FindGameByNameRepo(name) {
   return db.query('SELECT * FROM games WHERE name = $1;', [name]);
